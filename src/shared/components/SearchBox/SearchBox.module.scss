@@ -1,0 +1,57 @@
+@use "@/shared/styles/_variables.scss" as vars;
+
+.search-box {
+  display: flex;
+  gap: 34px;
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+  overflow: hidden;
+
+  &__container {
+    display: flex;
+    flex: 1;
+    border-radius: 4px;
+  }
+
+  &__input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    font-weight: 400;
+    color: vars.$text-color-gray;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__button {
+    position: relative;
+    padding: 0.5rem 1rem;
+    background: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    width: 50px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: vars.$default-background-color;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background-color: vars.$default-background-color;
+    }
+
+    img {
+      display: block;
+    }
+  }
+}

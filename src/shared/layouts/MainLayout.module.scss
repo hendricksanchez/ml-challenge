@@ -1,0 +1,17 @@
+@use "@/shared/styles/_variables.scss" as vars;
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &__header {
+    background-color: vars.$background-nav-color;
+    padding: 8px;
+  }
+
+  &__content {
+    flex: 1;
+    padding: 2rem;
+  }
+}
