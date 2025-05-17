@@ -19,10 +19,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
+      "@/api/*": ["./src/api/*"],
+      "@/assets/*": ["./src/assets/*"],
       "@/modules/*": ["./src/modules/*"],
       "@/pages/*": ["./src/pages/*"],
-      "@/api/*": ["./src/api/*"],
       "@/shared/*": ["./src/shared/*"],
       "@/store/*": ["./src/store/*"]
     }
