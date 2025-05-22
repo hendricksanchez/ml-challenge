@@ -1,0 +1,89 @@
+@use "@/shared/styles/_variables.scss" as vars;
+
+.item-card {
+  display: flex;
+  gap: 24px;
+  padding: 12px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid vars.$default-background-color;
+
+  &__image img {
+    width: 250px;
+    height: 259px;
+    object-fit: contain;
+  }
+
+  &__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 30px;
+  }
+
+  &__title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__title {
+    font-size: vars.$item-card-title-font-size;
+    font-weight: vars.$font-weight-light;
+  }
+
+  &__seller {
+    font-size: vars.$item-card-seller-font-size;
+    font-weight: vars.$font-weight-regular;
+    color: vars.$text-color-gray;
+  }
+
+  &__price-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  &__has-discount {
+    font-size: vars.$item-card-original-price-font-size;
+    color: vars.$text-color-gray;
+    text-decoration: line-through;
+  }
+
+  &__price-discount-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+    font-size: vars.$item-card-price-font-size;
+    font-weight: vars.$font-weight-regular;
+  }
+
+  &__discount {
+    font-size: vars.$item-card-discount-font-size;
+    font-weight: vars.$font-weight-regular;
+    color: vars.$text-color-green;
+  }
+
+  &__installments {
+    font-size: vars.$item-card-installments-font-size;
+    font-weight: vars.$font-weight-regular;
+    color: vars.$text-color-green;
+  }
+
+  &__shipping {
+    font-size: vars.$item-card-shipping-font-size;
+    color: vars.$text-color-green;
+    font-weight: vars.$font-weight-semibold;
+  }
+
+  &__condition {
+    font-size: vars.$item-card-condition-font-size;
+    font-weight: vars.$font-weight-regular;
+    color: vars.$text-color-gray;
+  }
+}

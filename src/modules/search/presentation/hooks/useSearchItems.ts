@@ -9,16 +9,16 @@ export const useSearchItems = (
 ) => {
   const router = useRouter();
 
-  const [items, setItems] = useState<ISearchResult | null>(null);
+  const [results, setResults] = useState<ISearchResult | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const searchAction = async (query: string, offset: number = 0) => {
     try {
       setIsLoading(true);
-      const res = await fetchFromMiddleware<ISearchResult>(
+      const response = await fetchFromMiddleware<ISearchResult>(
         `api/items?q=${encodeURIComponent(query)}&offset=${offset}`
       );
-      setItems(res);
+      setResults(response);
     } catch (error) {
       console.log("Error fetching items", error);
     } finally {
@@ -28,8 +28,8 @@ export const useSearchItems = (
 
   useEffect(() => {
     if (typeof search === "string") searchAction(search, offset);
-    if (!search) router.push("/");
+    // if (!search) router.push("/");
   }, [search, offset, router]);
 
-  return { items, isLoading, searchAction };
+  return { isLoading, results, searchAction };
 };

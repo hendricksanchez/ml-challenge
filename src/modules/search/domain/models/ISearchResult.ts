@@ -9,19 +9,23 @@ export interface ISearchItem {
   id: string;
   title: string;
   seller: string;
-  price: {
-    currency: string;
-    amount: number;
-    regularAmount: number;
-    discountRate: number;
-  };
-  installments: {
-    quantity: number;
-    amount: number;
-    rate: number;
-    currencyId: string;
-  };
+  price: ISearchItemPrice;
+  installments: ISearchItemInstallments;
   freeShipping: boolean;
   condition: string;
   picture: string;
+}
+
+export interface ISearchItemPrice {
+  currency: string;
+  amount: number;
+  regularAmount: number;
+  discountRate: number;
+}
+
+export interface ISearchItemInstallments {
+  quantity: number;
+  amount: number;
+  rate: number;
+  currencyId: string;
 }

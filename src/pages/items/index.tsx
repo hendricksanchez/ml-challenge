@@ -1,33 +1,20 @@
+import React from "react";
 import { useRouter } from "next/router";
+import { ItemList } from "@/modules/search/presentation/components/ItemList";
 import { useSearchItems } from "@/modules/search/presentation/hooks";
 
 const SearchResultsPage = () => {
   const router = useRouter();
   const { search, page } = router.query;
 
-  const { items, isLoading } = useSearchItems(search, Number(page) || 0);
+  const { results, isLoading } = useSearchItems(search, Number(page) || 0);
 
   if (isLoading) return <p>Cargando...</p>;
 
   return (
-    <div>
-      <h2>Resultados para &quot;{search}&quot;</h2>
-      <ul>
-        {items?.items?.map((item) => (
-          <li key={item.id}>
-            <a href={`/items/${item.id}`}>
-              <img src={item.picture} alt={item.title} />
-              <div>
-                <p>{item.title}</p>
-                <p>
-                  {item.price.amount} {item.price.currency}
-                </p>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <React.Fragment>
+      <ItemList items={results?.items} />
+    </React.Fragment>
   );
 };
 
