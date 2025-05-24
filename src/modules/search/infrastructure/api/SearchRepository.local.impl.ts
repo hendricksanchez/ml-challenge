@@ -4,7 +4,7 @@ import searchData from "@/modules/search/infrastructure/data/search-MLA-iphone.j
 import { mapSearchItemsFromApi } from "@/modules/search/infrastructure/mappers";
 import { ISearchItemResponse } from "@/modules/search/infrastructure/dtos";
 
-const itemsPerPage = Number(process.env.ITEMS_PER_PAGE || 0);
+const itemsPerPage = Number(process.env.NEXT_PUBLIC_ITEMS_PER_PAGE);
 
 export class SearchRepositoryLocalImpl implements ISearchRepository {
   async searchItems(query: string, offset: number = 0): Promise<ISearchResult> {
@@ -20,9 +20,9 @@ export class SearchRepositoryLocalImpl implements ISearchRepository {
             paging: searchData.paging,
           }).items,
           paging: {
-            total: paginated.length || 0,
-            offset: offset || 0,
             limit: itemsPerPage,
+            offset: offset || 0,
+            total: filteredItems.length || 0,
           },
         });
       }, 1000);

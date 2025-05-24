@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import Image from "next/image";
 import searchIcon from "@/assets/icons/ic_Search.png";
 import logoLarge25Years from "@/assets/images/logo_large_25years.png";
@@ -18,7 +19,9 @@ export const SearchBox = () => {
 
   return (
     <form className={styles["search-box"]} onSubmit={handleSubmit}>
-      <Image src={logoLarge25Years} alt="Logo" height={34} />
+      <Link href={"/"}>
+        <Image src={logoLarge25Years} alt="Logo" height={34} />
+      </Link>
       <div className={styles["search-box__container"]}>
         <input
           type="text"

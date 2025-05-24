@@ -12,10 +12,6 @@ export const ItemList = ({ items }: IItemListProps) => {
       {items?.map((item) => (
         <ItemCard key={item.id} item={item} />
       ))}
-      {/* <Pagination
-        currentPage={pagination.currentPage}
-        totalPages={pagination.totalPages}
-      /> */}
     </section>
   );
 };

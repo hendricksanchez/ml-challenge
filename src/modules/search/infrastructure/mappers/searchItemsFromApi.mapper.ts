@@ -1,6 +1,6 @@
 import { ISearchResult } from "@/modules/search/domain/models";
 import { ISearchItemsDtoResponse } from "@/modules/search/infrastructure/dtos";
-import { Currency } from "@/shared/enums";
+import { Currency, ItemCondition, mapItemCondition } from "@/shared/enums";
 
 export const mapSearchItemsFromApi = (
   dto: ISearchItemsDtoResponse
@@ -26,7 +26,10 @@ export const mapSearchItemsFromApi = (
         currencyId: item.installments.currency_id,
       },
       freeShipping: item.shipping?.free_shipping || false,
-      condition: item.condition,
+      condition:
+        mapItemCondition[
+          item.condition.toLowerCase() as keyof typeof ItemCondition
+        ],
       picture: item.thumbnail,
     })),
     paging: {
