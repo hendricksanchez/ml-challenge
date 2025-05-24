@@ -4,7 +4,7 @@ import { ISearchResult } from "@/modules/search/domain/models";
 export class SearchItemsByQueryUseCase {
   constructor(private repository: ISearchRepository) {}
 
-  async execute(query: string, offset?: number): Promise<ISearchResult> {
+  async execute(query: string, offset: number = 0): Promise<ISearchResult> {
     return await this.repository.searchItems(query, offset);
   }
 }

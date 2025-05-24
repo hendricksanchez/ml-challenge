@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ISearchItem } from "@/modules/search/domain/models";
+import { NumericHelper } from "@/shared/helpers";
 import styles from "./ItemCard.module.scss";
 
 interface IItemCard {
@@ -24,23 +25,33 @@ export const ItemCard = ({ item }: IItemCard) => {
         <div className={styles["item-card__price-container"]}>
           {item.price.discountRate > 0 && (
             <span className={styles["item-card__has-discount"]}>
-              {item.price.regularAmount}
+              {`${item.price.currency} ${NumericHelper.formatNumber(
+                item.price.regularAmount
+              )}`}
             </span>
           )}
           <div className={styles["item-card__price-discount-container"]}>
             <div className={styles["item-card__price"]}>
-              <span>{item.price.amount}</span>
+              <span>{`${item.price.currency} ${NumericHelper.formatNumber(
+                item.price.amount
+              )}`}</span>
             </div>
             {item.price.discountRate > 0 && (
               <div className={styles["item-card__discount"]}>
-                <span>{`${item.price.discountRate}% OFF`} </span>
+                <span>
+                  {`${NumericHelper.formatNumber(
+                    item.price.discountRate
+                  )}% OFF`}{" "}
+                </span>
               </div>
             )}
           </div>
           {item.installments.quantity > 0 && (
             <div className={styles["item-card__installments"]}>
               <span>
-                {`Mismo precio en ${item.installments.quantity} cuotas de ${item.installments.amount}`}
+                {`Mismo precio en ${item.installments.quantity} cuotas de ${
+                  item.price.currency
+                } ${NumericHelper.formatNumber(item.installments.amount)}`}
               </span>
             </div>
           )}

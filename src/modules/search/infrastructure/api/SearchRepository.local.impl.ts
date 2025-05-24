@@ -4,22 +4,25 @@ import searchData from "@/modules/search/infrastructure/data/search-MLA-iphone.j
 import { mapSearchItemsFromApi } from "@/modules/search/infrastructure/mappers";
 import { ISearchItemResponse } from "@/modules/search/infrastructure/dtos";
 
+const itemsPerPage = Number(process.env.ITEMS_PER_PAGE || 0);
+
 export class SearchRepositoryLocalImpl implements ISearchRepository {
-  async searchItems(query: string, offset?: number): Promise<ISearchResult> {
-    const searchItems = searchData.results.filter((item) =>
+  async searchItems(query: string, offset: number = 0): Promise<ISearchResult> {
+    const filteredItems = searchData.results.filter((item) =>
       item.title.toLowerCase().includes(query.toLowerCase())
     );
+    const paginated = filteredItems.slice(offset, offset + itemsPerPage);
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({
           items: mapSearchItemsFromApi({
-            items: searchItems as unknown as ISearchItemResponse[],
+            items: paginated as unknown as ISearchItemResponse[],
             paging: searchData.paging,
           }).items,
           paging: {
-            total: searchItems.length || 0,
+            total: paginated.length || 0,
             offset: offset || 0,
-            limit: searchData.paging.limit,
+            limit: itemsPerPage,
           },
         });
       }, 1000);

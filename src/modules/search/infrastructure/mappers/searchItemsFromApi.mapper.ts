@@ -1,5 +1,6 @@
 import { ISearchResult } from "@/modules/search/domain/models";
 import { ISearchItemsDtoResponse } from "@/modules/search/infrastructure/dtos";
+import { Currency } from "@/shared/enums";
 
 export const mapSearchItemsFromApi = (
   dto: ISearchItemsDtoResponse
@@ -10,7 +11,9 @@ export const mapSearchItemsFromApi = (
       title: item.title,
       seller: item.seller.nickname,
       price: {
-        currency: item.currency_id,
+        currency:
+          Currency[item.currency_id as keyof typeof Currency].toString(),
+        currencyId: item.currency_id,
         amount: item.price,
         regularAmount: item.original_price || item.price,
         discountRate:
