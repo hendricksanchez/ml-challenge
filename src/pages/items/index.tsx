@@ -15,7 +15,7 @@ const SearchResultsPage = ({ search, page }: ISearchResultsPage) => {
 
   useEffect(() => {
     searchAction(search, page);
-  }, [page, search]);
+  }, [page, search, searchAction]);
 
   if (isLoading) return <Spinner />;
 

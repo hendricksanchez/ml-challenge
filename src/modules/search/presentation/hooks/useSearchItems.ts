@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ISearchResult } from "@/modules/search/domain/models";
 import { fetchFromMiddleware } from "@/shared/infrastructure/http";
 
@@ -8,7 +8,7 @@ export const useSearchItems = () => {
   const [results, setResults] = useState<ISearchResult | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const searchAction = async (query: string, page: number = 0) => {
+  const searchAction = useCallback(async (query: string, page: number = 0) => {
     const offset = page * itemsPerPage;
     setIsLoading(true);
     try {
@@ -21,7 +21,7 @@ export const useSearchItems = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   return { isLoading, results, searchAction };
 };
