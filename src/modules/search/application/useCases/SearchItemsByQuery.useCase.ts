@@ -1,10 +1,19 @@
-import { ISearchRepository } from "@/modules/search/domain/repositories";
+import { fetchFromMiddleware } from "@/shared/infrastructure/http";
 import { ISearchResult } from "@/modules/search/domain/models";
 
-export class SearchItemsByQueryUseCase {
-  constructor(private repository: ISearchRepository) {}
+const itemsPerPage = Number(process.env.NEXT_PUBLIC_ITEMS_PER_PAGE);
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-  async execute(query: string, offset: number = 0): Promise<ISearchResult> {
-    return await this.repository.searchItems(query, offset);
+export const searchItemsByQueryUseCase = async (
+  search: string,
+  page: number
+) => {
+  const offset = page * itemsPerPage;
+  try {
+    return await fetchFromMiddleware<ISearchResult>(
+      `${baseUrl}/api/items?q=${encodeURIComponent(search)}&offset=${offset}`
+    );
+  } catch (error) {
+    console.log("Error fetching items", error);
   }
-}
+};
