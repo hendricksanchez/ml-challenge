@@ -1,23 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
+import { ISearchResult } from "@/modules/search/domain/models";
+import { searchItemsByQueryUseCase } from "@/modules/search/application/useCases";
 import { ItemList } from "@/modules/search/presentation/components/ItemList";
 import { Pagination } from "@/modules/search/presentation/components/Pagination";
-import { Spinner } from "@/shared/components/Spinner";
-import { useSearchItems } from "@/modules/search/presentation/hooks";
 
 interface ISearchResultsPage {
+  results: ISearchResult | undefined;
   search: string;
-  page: number;
 }
 
-const SearchResultsPage = ({ search, page }: ISearchResultsPage) => {
-  const { isLoading, results, searchAction } = useSearchItems();
+const SearchResultsPage = ({ results, search }: ISearchResultsPage) => {
+  const router = useRouter();
 
-  useEffect(() => {
-    searchAction(search, page);
-  }, [page, search, searchAction]);
-
-  if (isLoading) return <Spinner />;
+  const handleOnPageChange = (newPage: number) => {
+    router.push(`/items?search=${encodeURIComponent(search)}&page=${newPage}`);
+  };
 
   return (
     <React.Fragment>
@@ -26,18 +25,19 @@ const SearchResultsPage = ({ search, page }: ISearchResultsPage) => {
         limit={results?.paging?.limit ?? 0}
         offset={results?.paging?.offset ?? 0}
         total={results?.paging.total ?? 0}
-        onPageChange={(newPage) => searchAction(search, newPage)}
+        onPageChange={(newPage) => handleOnPageChange(newPage)}
       />
     </React.Fragment>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { search = "", page = 1 } = context.query;
+  const { search = "", page = 0 } = context.query;
+  const results = await searchItemsByQueryUseCase(String(search), Number(page));
   return {
     props: {
       search,
-      page,
+      results,
     },
   };
 };

@@ -2,8 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { SearchItemsService } from "@/modules/search/application/services/SearchItems.service";
 import { SearchRepositoryLocalImpl } from "@/modules/search/infrastructure/api";
 
-const repo = new SearchRepositoryLocalImpl();
-const searchItemsService = new SearchItemsService(repo);
+const repository = new SearchRepositoryLocalImpl();
+const searchItemsService = new SearchItemsService(repository);
 
 export default async function handler(
   req: NextApiRequest,
