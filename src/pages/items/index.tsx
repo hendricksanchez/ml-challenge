@@ -34,6 +34,12 @@ const SearchResultsPage = ({ results, search }: ISearchResultsPage) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { search = "", page = 0 } = context.query;
   const results = await searchItemsByQueryUseCase(String(search), Number(page));
+
+  if (results?.paging.total === 0) {
+    return {
+      notFound: true,
+    };
+  }
   return {
     props: {
       search,
