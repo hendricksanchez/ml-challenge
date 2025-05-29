@@ -30,10 +30,20 @@
     border-radius: 4px;
     border: 1px solid #eee;
     cursor: pointer;
+    transition: border 0.2s;
+
+    &:hover {
+      border-color: vars.$text-color-blue;
+    }
+
+    &--selected {
+      border: 2px solid vars.$text-color-blue;
+    }
   }
 
   &__image-wrapper {
-    flex: 1;
+    height: 500px;
+    width: 350px;
   }
 
   &__image {

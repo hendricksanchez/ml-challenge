@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { IItem } from "@/modules/item/domain/models";
 import { NumericHelper } from "@/shared/helpers";
@@ -9,6 +9,10 @@ interface IItemDetail {
 }
 
 export const ItemDetail = ({ item }: IItemDetail) => {
+  const [selectedImage, setSelectedImage] = useState<string>(
+    item.pictures?.[0].url
+  );
+
   const getMainColor = useMemo(() => {
     const attribute = item.attributes.find(
       (attribute) => attribute.id === "MAIN_COLOR"
@@ -26,18 +30,23 @@ export const ItemDetail = ({ item }: IItemDetail) => {
                 key={idx}
                 src={item.pictures[idx].url}
                 alt={`Imagen ${idx + 1}`}
-                className={styles["item-detail__thumb"]}
+                className={`${styles["item-detail__thumb"]} ${
+                  item.pictures[idx].url === selectedImage
+                    ? styles["item-detail__thumb--selected"]
+                    : ""
+                }`}
                 width={50}
                 height={50}
+                onClick={() => setSelectedImage(item.pictures[idx].url)}
               />
             ))}
           </div>
           <div className={styles["item-detail__image-wrapper"]}>
             <Image
-              src={item.pictures[0].url}
+              src={selectedImage}
               alt={item.title}
               className={styles["item-detail__image"]}
-              width={500}
+              width={300}
               height={500}
             />
           </div>
@@ -75,13 +84,17 @@ export const ItemDetail = ({ item }: IItemDetail) => {
             </span>
           )}
 
-          <div>
-            <span className={styles["item-detail__attribute-key"]}>Color:</span>
-            &nbsp;
-            <span className={styles["item-detail__attribute-value"]}>
-              {getMainColor}
-            </span>
-          </div>
+          {getMainColor && (
+            <div>
+              <span className={styles["item-detail__attribute-key"]}>
+                Color:
+              </span>
+              &nbsp;
+              <span className={styles["item-detail__attribute-value"]}>
+                {getMainColor}
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
