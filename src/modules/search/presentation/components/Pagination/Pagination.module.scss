@@ -1,0 +1,35 @@
+@use "@/shared/styles/_variables.scss" as vars;
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  background-color: vars.$background-pagination;
+  position: fixed;
+  bottom: 0;
+  height: 65px;
+  width: 100%;
+  z-index: 999;
+
+  &__button {
+    background-color: vars.$background-pagination;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: vars.$font-weight-regular;
+    padding: 4px;
+    margin-top: 12px;
+    height: 28px;
+    min-width: 28px;
+
+    &--active {
+      background-color: vars.$background-item;
+      border: 1px solid #3483fa;
+      font-weight: vars.$font-weight-semibold;
+    }
+
+    &:hover:not(.pagination__button--active) {
+      background-color: vars.$default-background-color;
+    }
+  }
+}

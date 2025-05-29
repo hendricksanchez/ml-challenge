@@ -1,0 +1,30 @@
+@use "@/shared/styles/_variables.scss" as vars;
+
+.breadcrumb {
+  display: flex;
+  font-size: 0.9rem;
+  color: vars.$text-color-gray;
+  margin-bottom: 10px;
+
+  &__go-back {
+    cursor: pointer;
+    color: vars.$text-color-blue;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+
+  &__separator {
+    margin: 0 0.5rem;
+  }
+}

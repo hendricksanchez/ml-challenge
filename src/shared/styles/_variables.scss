@@ -1,13 +1,40 @@
 // font
 $font-family: Proxima Nova;
-$font-size: 1rem;
+$font-size: 16px;
+$item-card-title-font-size: 20px;
+$item-card-seller-font-size: 14px;
+$item-card-price-font-size: 24px;
+$item-card-original-price-font-size: 12px;
+$item-card-discount-font-size: 14px;
+$item-card-installments-font-size: 14px;
+$item-card-shipping-font-size: 14px;
+$item-card-condition-font-size: 14px;
+$item-detail-condition-font-size: 15px;
+$item-detail-title-font-size: 22px;
+$item-detail-seller-font-size: 18px;
+$item-detail-price-font-size: 36px;
+$item-detail-attributes: 18px;
+
+// font-weight
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-black: 900;
 
 // background
 $default-background-color: #ebebeb;
 $background-nav-color: #ffe600;
 $background-item: #ffffff;
+$background-pagination: #f2f2f2;
 
 // colors
 $default-text-color: rgba(0, 0, 0, 0.9);
 $text-color-gray: rgba(0, 0, 0, 0.55);
+$text-color-gray-two: rgba(0, 0, 0, 0.8);
 $text-color-green: #00a650;
+$text-color-blue: #3483fa;
+
+// others
+$border-radius: 4px;
