@@ -21,10 +21,17 @@ export default function ItemDetailPage({ item }: IItemDetailPage) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
-  const item = await getItemDetailsByIdUseCase(String(id));
-  return {
-    props: {
-      item,
-    },
-  };
+  try {
+    const item = await getItemDetailsByIdUseCase(String(id));
+    return {
+      props: {
+        item: item ?? null,
+      },
+    };
+  } catch (error) {
+    console.log("Error calling getItemDetailsByIdUseCase", error);
+    return {
+      notFound: true,
+    };
+  }
 };

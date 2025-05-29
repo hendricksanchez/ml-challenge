@@ -9,6 +9,7 @@ export const getItemDetailsByIdUseCase = async (id: string) => {
       `${baseUrl}/api/items/${encodeURIComponent(id)}`
     );
   } catch (error) {
-    console.log("Error fetching item details", error);
+    console.log("Error getItemDetailsById", error);
+    throw Error;
   }
 };
