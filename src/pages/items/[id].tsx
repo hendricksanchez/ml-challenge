@@ -1,28 +1,30 @@
+import React from "react";
 import { GetServerSideProps } from "next";
-import { IItemDetail } from "@/modules/item/domain/models";
+import { IItem } from "@/modules/item/domain/models";
 import { getItemDetailsByIdUseCase } from "@/modules/item/application/useCases";
+import { ItemDetail } from "@/modules/item/presentation/components/ItemDetail/ItemDetail";
+import { ItemContainer } from "@/modules/item/presentation/components/ItemContainer";
+import { Breadcrumb } from "@/modules/item/presentation/components/Breadcrumb";
 
 interface IItemDetailPage {
-  details: IItemDetail;
+  item: IItem;
 }
 
-export default function ItemDetailPage({ details }: IItemDetailPage) {
-  console.log("details", details);
-
+export default function ItemDetailPage({ item }: IItemDetailPage) {
   return (
-    <div>
-      <h1>Item Detail</h1>
-      <p>Detalles del producto {details?.item?.id}</p>
-    </div>
+    <ItemContainer>
+      <Breadcrumb items={item.categoryPathFromRoot} />
+      <ItemDetail item={item} />
+    </ItemContainer>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
-  const results = await getItemDetailsByIdUseCase(String(id));
+  const item = await getItemDetailsByIdUseCase(String(id));
   return {
     props: {
-      details: results,
+      item,
     },
   };
 };

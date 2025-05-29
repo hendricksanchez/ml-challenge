@@ -1,5 +1,5 @@
-import { IItemDetail } from "@/modules/item/domain/models";
+import { IItem } from "@/modules/item/domain/models";
 
 export interface IItemRepository {
-  getById: (id: string) => Promise<IItemDetail>;
+  getById: (id: string) => Promise<IItem>;
 }

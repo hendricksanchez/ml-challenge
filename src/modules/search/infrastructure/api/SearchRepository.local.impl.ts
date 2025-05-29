@@ -1,6 +1,6 @@
 import { ISearchResult } from "@/modules/search/domain/models";
 import { ISearchRepository } from "@/modules/search/domain/repositories";
-import searchData from "@/modules/search/infrastructure/data/search-MLA-iphone.json";
+import searchData from "@/shared/infrastructure/data/search-MLA-iphone.json";
 import { mapSearchItemsFromApi } from "@/modules/search/infrastructure/mappers";
 import { ISearchItemResponse } from "@/modules/search/infrastructure/dtos";
 
@@ -25,7 +25,7 @@ export class SearchRepositoryLocalImpl implements ISearchRepository {
             total: filteredItems.length || 0,
           },
         });
-      }, 1000);
+      }, 500);
     });
   }
 }

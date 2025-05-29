@@ -1,1 +1,1 @@
-export * from "./itemFromApi.mapper";
+export * from "./itemDetailsFromApi.mapper";

@@ -1,4 +1,4 @@
-export interface IItemDescription {
+export interface IItemDescriptionDtoResponse {
   text: string;
   plain_text: string;
   last_updated: string;
