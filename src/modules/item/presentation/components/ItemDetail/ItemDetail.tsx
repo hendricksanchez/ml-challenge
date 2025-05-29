@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import Image from "next/image";
 import { IItem } from "@/modules/item/domain/models";
 import { NumericHelper } from "@/shared/helpers";
@@ -8,7 +9,13 @@ interface IItemDetail {
 }
 
 export const ItemDetail = ({ item }: IItemDetail) => {
-  // const mainImage = item.pictures?.[0].url;
+  const getMainColor = useMemo(() => {
+    const attribute = item.attributes.find(
+      (attribute) => attribute.id === "MAIN_COLOR"
+    );
+    return attribute?.value_name ?? "";
+  }, [item.attributes]);
+
   return (
     <div className={styles["item-detail"]}>
       <div className={styles["item-detail__top"]}>
@@ -38,23 +45,29 @@ export const ItemDetail = ({ item }: IItemDetail) => {
 
         <div className={styles["item-detail__right"]}>
           <span className={styles["item-detail__condition"]}>
-            {item.condition} | {item.initialQuantity} vendidos
+            {item.condition} | +{item.initialQuantity} vendidos
           </span>
-          <h1 className={styles["item-detail__title"]}>{item.title}</h1>
-          <span className={styles["item-detail__seller"]}>
-            Por {item.seller}
-          </span>
-          <span className={styles["item-detail__price"]}>
-            {`${item.price.currency} ${NumericHelper.formatNumber(
-              item.price.regularAmount
-            )}`}
-          </span>
-
-          {item.price && (
-            <span className={styles["item-detail__installments"]}>
-              Mismo precio en XXXX
+          <div className={styles["item-detail__title-container"]}>
+            <h1 className={styles["item-detail__title"]}>{item.title}</h1>
+            <span className={styles["item-detail__seller"]}>
+              Por {item.seller}
             </span>
-          )}
+          </div>
+
+          <div className={styles["item-detail__price-container"]}>
+            <span className={styles["item-detail__price"]}>
+              {`${item.price.currency} ${NumericHelper.formatNumber(
+                item.price.amount
+              )}`}
+            </span>
+            {item.installments?.quantity > 0 && (
+              <span className={styles["item-detail__installments"]}>
+                {`Mismo precio en ${item.installments.quantity} cuotas de ${
+                  item.price.currency
+                } ${NumericHelper.formatNumber(item.installments.amount)}`}
+              </span>
+            )}
+          </div>
 
           {item.shipping.free_shipping && (
             <span className={styles["item-detail__shipping"]}>
@@ -62,11 +75,13 @@ export const ItemDetail = ({ item }: IItemDetail) => {
             </span>
           )}
 
-          {true && (
-            <span className={styles["item-detail__attribute"]}>
-              Color: <strong>{`Azul`}</strong>
+          <div>
+            <span className={styles["item-detail__attribute-key"]}>Color:</span>
+            &nbsp;
+            <span className={styles["item-detail__attribute-value"]}>
+              {getMainColor}
             </span>
-          )}
+          </div>
         </div>
       </div>
 
@@ -79,32 +94,5 @@ export const ItemDetail = ({ item }: IItemDetail) => {
         </p>
       </div>
     </div>
-    // <div className={styles["item-detail"]}>
-    //   <div className={styles["item-detail__image-section"]}>
-    //     {mainImage && (
-    //       <div className={styles["item-detail__image"]}>
-    //         <Image src={mainImage} alt={item.title} height={259} width={250} />
-    //       </div>
-    //     )}
-    //     <div className={styles["item-detail__description"]}>
-    //       <h2 className={styles["item-detail__description-title"]}>
-    //         Descripción del producto
-    //       </h2>
-    //       <p className={styles["item-detail__description-text"]}>
-    //         {item.description}
-    //       </p>
-    //     </div>
-    //   </div>
-
-    //   <div className={styles["item-detail__info-section"]}>
-    //     <span className={styles["item-detail__condition"]}>
-    //       {item.condition} · {item.initialQuantity} vendidos
-    //     </span>
-    //     <h1 className={styles["item-detail__title"]}>{item.title}</h1>
-    //     <span className={styles["item-detail__price"]}>{`${
-    //       item.price.currency
-    //     } ${NumericHelper.formatNumber(item.price.amount)}`}</span>
-    //   </div>
-    // </div>
   );
 };

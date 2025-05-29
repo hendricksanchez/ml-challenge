@@ -1,4 +1,7 @@
-import { ISearchItemPrice } from "@/modules/search/domain/models";
+import {
+  ISearchItemInstallments,
+  ISearchItemPrice,
+} from "@/modules/search/domain/models";
 import { IItemAttributes } from "./IItemAttributes.model";
 import { IItemPicture } from "./IItemPicture.model";
 import { IItemShipping } from "./IItemShipping.model";
@@ -17,6 +20,7 @@ export interface IItem {
   description: string;
   officialStoreId: number | null;
   price: ISearchItemPrice;
+  installments: ISearchItemInstallments;
   initialQuantity: number;
   condition: string;
   permalink: string;

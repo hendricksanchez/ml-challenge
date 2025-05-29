@@ -32,6 +32,12 @@ export const mapItemDetailsFromApi = (
       discountRate:
         dtoFromSearch.sale_price?.metadata?.campaign_discount_percentage || 0,
     },
+    installments: {
+      quantity: dtoFromSearch.installments.quantity,
+      amount: dtoFromSearch.installments.amount,
+      rate: dtoFromSearch.installments.rate,
+      currencyId: dtoFromSearch.installments.currency_id,
+    },
     initialQuantity: dto.initial_quantity,
     condition:
       mapItemCondition[
